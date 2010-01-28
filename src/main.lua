@@ -33,26 +33,19 @@ function Thing:move(dx, dy)
    self.y = self.y + dy
 end
 
-ship = Thing:new {sprite = love.graphics.newImage("ship.png"),
-		  ox = 32, oy = 32,
-	          x = 100.0, y = 100.0}
-
-function ship:update(dt)
-
-   Thing.update(self, dt)
-
-   local w = love.graphics.getWidth()
-   local h = love.graphics.getHeight()
-
-   if self.x < 0 then self.x = 0 self.vx = 0 end
-   if self.y < 0 then self.y = 0 self.vy = 0 end
-   if self.x > w then self.x = w self.vx = 0 end
-   if self.y > h then self.y = h self.vy = 0 end
-end
-
 --
 
-things = {ship}
+updatehooks = {}
+
+binds = {}
+
+function bindAll(t)
+   for k, ac in pairs(t) do
+      binds[k] = ac
+   end
+end
+
+things = {}
 
 function removething(thing)
    for i, v in ipairs(things) do
@@ -62,46 +55,6 @@ function removething(thing)
       end
    end
 end
-
-function newenemy()
-   
-   if math.random() < 0.99 then
-      return
-   end
-
-   local enemy = Thing:new {
-      sprite = love.graphics.newImage("enemy1.png"),
-      ox = 32, oy = 32,
-      y = 0, x = math.random(love.graphics.getWidth()),
-      vx = 0, vy = math.random(100)}
-
-   function enemy:update(dt)
-      Thing.update(self, dt)
-      if self.y > love.graphics.getHeight() then
-	 removething(self)
-      end
-   end
-
-   table.insert(things,enemy)
-end
-
-updatehooks = {newenemy, function() print(table.maxn(things)) end}
-
---
-
-speed = 3
-
-binds = {
-   s = function () ship:move(0,speed) end,
-   d = function () ship:move(speed,0) end,
-   w = function () ship:move(0,-speed) end,
-   a = function () ship:move(-speed,0) end,
-
-   down =  function () ship:move(0,speed) end,
-   right = function () ship:move(speed,0) end,
-   up =    function () ship:move(0,-speed) end,
-   left =  function () ship:move(-speed,0) end,
-}
 
 --
 
@@ -129,3 +82,7 @@ function love.draw()
    end
 end
 
+--
+
+dofile("src/player.lua")
+dofile("src/enemy.lua")
