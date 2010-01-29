@@ -6,18 +6,16 @@ function newenemy()
 
    local enemy = Thing:new {
       sprite = love.graphics.newImage("enemy1.png"),
-      ox = 32, oy = 32,
-      y = 0, x = math.random(love.graphics.getWidth()),
-      vx = 0, vy = math.random(100)}
+      ox = 8, oy = 8,
+      y = 0, x = math.random(love.graphics.getWidth()/scale),
+      vx = 0, vy = math.random(10,30),
+      type = "enemy"}
 
-   function enemy:update(dt)
-      Thing.update(self, dt)
-      if self.y > love.graphics.getHeight() then
-	 removething(self)
+   function enemy:collide(thing)
+      if thing.type == "bullet" then
+	 self:remove()
       end
    end
-
-   table.insert(things,enemy)
 end
 
 table.insert(updatehooks, newenemy)
