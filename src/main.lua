@@ -84,7 +84,8 @@ function love.update(dt)
       t:update(dt)
 
       for _, s in ipairs(things) do
-	 if math.abs(t.x-s.x)<=2 and math.abs(t.y-s.y)<=2 then
+	 if math.abs(t.x-s.x)<=1 and math.abs(t.y-s.y)<=1 and not rawequal(t,s) then
+	    print("collide",t.type,s.type)
 	    t:collide(s)
 	    s:collide(t)
 	 end

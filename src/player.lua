@@ -31,8 +31,12 @@ function ship:shoot()
 
    bullet = Thing:new {sprite = love.graphics.newImage("bullet.png"),
 		       ox = 8, oy = 8,
-	               x = self.x, y = self.y - 4, type = "bullet",
-		       vy = -30, vx = 0}
+	               x = self.x, y = self.y - 6, type = "bullet",
+		       vy = -120, vx = 0}
+
+   function bullet:collide(thing)
+      self:remove()
+   end
 
    self.cooldown = 0.3
 end
