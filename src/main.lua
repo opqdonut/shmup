@@ -27,10 +27,10 @@ function Thing:remove()
    end
 end
 
-scale=4
-
 function Thing:draw()
-   love.graphics.draw(self.sprite, scale*(self.x-self.ox), scale*(self.y-self.oy))
+   love.graphics.draw(self.sprite,
+		      self.x-self.ox,
+		      self.y-self.oy)
 end
 
 function Thing:update(dt)
@@ -84,7 +84,8 @@ function love.update(dt)
       t:update(dt)
 
       for _, s in ipairs(things) do
-	 if math.abs(t.x-s.x)<=1 and math.abs(t.y-s.y)<=1 and not rawequal(t,s) then
+	 if math.abs(t.x+t.ox-s.x-s.ox)<=4 and
+	    math.abs(t.y+t.oy-s.y-s.oy)<=4 and not rawequal(t,s) then
 	    print("collide",t.type,s.type)
 	    t:collide(s)
 	    s:collide(t)

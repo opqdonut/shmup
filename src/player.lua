@@ -1,6 +1,6 @@
 ship = Thing:new {sprite = love.graphics.newImage("ship.png"),
-		  ox = 8, oy = 8,
-	          x = 30.0, y = 30.0,
+		  ox = 32, oy = 32,
+	          x = 100.0, y = 300.0,
 	          type = "player", cooldown=0}
 
 function ship:update(dt)
@@ -10,8 +10,8 @@ end
 
 function ship:outside()
 
-   local w = love.graphics.getWidth()/scale
-   local h = love.graphics.getHeight()/scale
+   local w = love.graphics.getWidth()
+   local h = love.graphics.getHeight()
 
    if self.x < 0 then self.x = 0 self.vx = 0 end
    if self.y < 0 then self.y = 0 self.vy = 0 end
@@ -30,9 +30,9 @@ function ship:shoot()
    if self.cooldown > 0 then return end
 
    bullet = Thing:new {sprite = love.graphics.newImage("bullet.png"),
-		       ox = 8, oy = 8,
-	               x = self.x, y = self.y - 6, type = "bullet",
-		       vy = -120, vx = 0}
+		       ox = 32, oy = 32,
+	               x = self.x, y = self.y - 8, type = "bullet",
+		       vy = -420, vx = 0}
 
    function bullet:collide(thing)
       self:remove()
