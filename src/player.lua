@@ -1,11 +1,39 @@
 ship = Thing:new {sprite = love.graphics.newImage("ship.png"),
 		  ox = 32, oy = 32,
+		  bb = 1,
 	          x = 100.0, y = 300.0,
 	          type = "player", cooldown=0}
+
+speed = 300
+
+binds = {
+   s = function () ship:accel(0,speed) end,
+   d = function () ship:accel(speed,0) end,
+   w = function () ship:accel(0,-speed) end,
+   a = function () ship:accel(-speed,0) end,
+
+   down =  function () ship:accel(0,speed) end,
+   right = function () ship:accel(speed,0) end,
+   up =    function () ship:accel(0,-speed) end,
+   left =  function () ship:accel(-speed,0) end,
+
+   [" "] = function () ship:shoot() end,
+}
 
 function ship:update(dt)
    self.cooldown = self.cooldown - dt
    if self.cooldown < 0 then self.cooldown = 0 end
+
+   self:stop()
+   
+   for k,cb in pairs(binds) do
+      if love.keyboard.isDown(k) then
+	 cb()
+      end
+   end
+
+   self.x = self.x + dt*self.vx
+   self.y = self.y + dt*self.vy
 end
 
 function ship:outside()
@@ -20,7 +48,7 @@ function ship:outside()
 end
 
 function ship:collide(thing)
-   if thing.type=="enemy" or thing.type=="bullet" then
+   if thing.type=="enemy" then
       self:remove()
    end
 end
@@ -31,6 +59,7 @@ function ship:shoot()
 
    bullet = Thing:new {sprite = love.graphics.newImage("bullet.png"),
 		       ox = 32, oy = 32,
+		       bb = 4,
 	               x = self.x, y = self.y - 8, type = "bullet",
 		       vy = -420, vx = 0}
 
@@ -41,18 +70,3 @@ function ship:shoot()
    self.cooldown = 0.3
 end
 
-speed = 1
-
-bindAll {
-   s = function () ship:move(0,speed) end,
-   d = function () ship:move(speed,0) end,
-   w = function () ship:move(0,-speed) end,
-   a = function () ship:move(-speed,0) end,
-
-   down =  function () ship:move(0,speed) end,
-   right = function () ship:move(speed,0) end,
-   up =    function () ship:move(0,-speed) end,
-   left =  function () ship:move(-speed,0) end,
-
-   [" "] = function () ship:shoot() end,
-}

@@ -7,6 +7,7 @@ function newenemy()
    local enemy = Thing:new {
       sprite = love.graphics.newImage("enemy1.png"),
       ox = 32, oy = 32,
+      bb = 8,
       y = 0, x = math.random(love.graphics.getWidth()),
       vx = 0, vy = math.random(40,120),
       type = "enemy"}
