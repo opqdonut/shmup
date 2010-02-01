@@ -1,6 +1,6 @@
 function newenemy()
    
-   if math.random() < 0.99 then
+   if math.random() < 0.95 then
       return
    end
 
