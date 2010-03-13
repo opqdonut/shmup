@@ -18,7 +18,7 @@ function love.update(dt)
 	    math.abs(t.y+t.oy-s.y-s.oy)<=t.bb+s.bb and
             not rawequal(t,s)
 	 then
-	    print("collide",t.type,s.type)
+	    --print("collide",t.type,s.type)
 	    t:collide(s)
 	    s:collide(t)
 	 end

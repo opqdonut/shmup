@@ -2,10 +2,6 @@ Star = {}
 Star.__index = Star
 setmetatable(Star, Thing)
 
-for k,_ in pairs(Star) do
-   print(k)
-end
-
 --[[
 function Star:new(x,y,vy)
    local o = Thing.new {
