@@ -10,6 +10,10 @@ ship = Thing:new{
 }
 
 speed = 300
+absorbtime = 0.2
+absorbcooldown = 1
+bulletspeed = 500
+weaponcooldown = 0.3
 
 binds = {
    s = function () ship:accel(0,speed) end,
@@ -55,7 +59,8 @@ end
 
 function ship:draw()
    if self.absorbleft > 0 then
-      love.graphics.circle("line",self.x,self.y,30)
+      love.graphics.circle("line",self.x,self.y,
+			   5+25*self.absorbleft/absorbtime)
    end
    love.graphics.draw(self.sprite,
 		      self.x-self.ox,
@@ -90,19 +95,19 @@ function ship:shoot()
 		       ox = 32, oy = 32,
 		       bb = 4,
 	               x = self.x, y = self.y - 12, type = "bullet",
-		       vy = -500, vx = 0}
+		       vy = -bulletspeed, vx = 0}
 
    function bullet:collide(thing)
       self:remove()
    end
 
-   self.cooldown = 0.3
+   self.cooldown = weaponcooldown
 end
 
 function ship:absorb()
 
    if self.absorbcooldown > 0 then return end
-   self.absorbleft = 0.2
-   self.absorbcooldown = 5
+   self.absorbleft = absorbtime
+   self.absorbcooldown = absorbcooldown
 
 end
