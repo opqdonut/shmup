@@ -28,14 +28,11 @@ function Thing:remove()
 end
 
 function Thing:draw()
-   love.graphics.draw(self.sprite,
-		      self.x-self.ox,
-		      self.y-self.oy)
---[[ local a = self.bb
-   love.graphics.point(self.x-a, self.y-a)
-   love.graphics.point(self.x+a, self.y+a)
-   love.graphics.point(self.x-a, self.y+a)
-   love.graphics.point(self.x+a, self.y-a) --]]
+   if self.sprite then
+      love.graphics.draw(self.sprite,
+			 self.x-self.ox,
+			 self.y-self.oy)
+   end
 end
 
 function Thing:update(dt)

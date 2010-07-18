@@ -17,7 +17,7 @@ end
 --]]
 
 function Star:outside()
-   self.y = 0
+   self.y = -math.random(30)
    self.x = math.random(love.graphics.getWidth())
 end
 
