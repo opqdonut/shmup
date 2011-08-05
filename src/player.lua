@@ -51,10 +51,7 @@ function ship:update(dt)
       end
    end
 
-   self.x = self.x + dt*self.vx
-   self.y = self.y + dt*self.vy
-
-   
+   Thing.update(self,dt)
 end
 
 function ship:draw()

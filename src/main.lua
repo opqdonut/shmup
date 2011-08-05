@@ -40,7 +40,7 @@ end
 
 love.graphics.setMode(600,800)
 
-
+dofile("src/explosion.lua")
 dofile("src/background.lua")
 dofile("src/player.lua")
 dofile("src/enemy.lua")

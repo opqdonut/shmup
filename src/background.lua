@@ -28,7 +28,7 @@ function stars(step,v)
 	 y=y,
 	 vy=v,
 	 sprite=love.graphics.newImage("star.png"),
-	 type="star",
+	 type="inert",
       }
    end
 end
